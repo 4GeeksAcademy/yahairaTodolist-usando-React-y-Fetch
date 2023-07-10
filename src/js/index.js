@@ -9,10 +9,10 @@ import "../styles/index.css";
 import ListItems from "./component/home.jsx"
 
 const listItems=[
-    {label: "Hacer esto", done : false},
-    {label: "Y esto", done : false},
-    {label: "Esto tambien", done : false},
-    {label: "Esto talvez", done : false},
+    {label: "Por hacer ", done : false},
+    {label: "Por hacer", done : false},
+    {label: "Por hacer", done : false},
+    {label: "Por hacer", done : false},
     {label: "Esto ya lo hice", done : true}];
 
 //render your react application
