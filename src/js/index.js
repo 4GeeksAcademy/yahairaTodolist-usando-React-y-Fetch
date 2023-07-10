@@ -6,7 +6,7 @@ import ReactDOM from "react-dom";
 import "../styles/index.css";
 
 //import your own components
-import ListItems from "./component/todo.jsx"
+import ListItems from "./component/home.jsx"
 
 const listItems=[
     {label: "Hacer esto", done : false},
