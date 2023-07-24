@@ -4,29 +4,76 @@ function ListItems(props) {
     
     const [textValue, setTextValue] = useState("")
     const [todos, setlistItems] = useState(props.listItems);
+
+    //fetch GET
+    useEffect(() => {
+        fetch("https://fake-todo-list-52f9a4ed80ce.herokuapp.com/Yahaira326")
+            .then(response => response.json())
+            .then(data => setlistItems(data))
+            .catch(error => console.error("Error fetching data:", error));
+    }, []);
     
+    //fetch delete en esta funcion=
+
     function itemCloseButtonHandler(index) {
-        //let nextTodos = todos.filter((a, i) => i != e.target.getAttribute("index"))
-        let nextTodos = [...todos]
-        nextTodos.splice(index,1)
-        setlistItems(nextTodos)
-	}
+        const taskToDelete = todos[index];
     
-	function itemCheckButtonHandler(event) {
-        let index = event.target.getAttribute("index")
-        let nextTodos = todos.map((e, i) => { if (index == i) e.done = !e.done; return e })
-		setlistItems(nextTodos)
-	}
+        fetch(`https://fake-todo-list-52f9a4ed80ce.herokuapp.com/Yahaira326/${taskToDelete.id}`, {
+            method: "DELETE",
+        })
+            .then(() => {
+                const updatedTodos = todos.filter((task, i) => i !== index);
+                setlistItems(updatedTodos);
+            })
+            .catch(error => console.error("Error deleting task:", error));
+    }
+    
+    
+	//FETCH PUT en esta funcion
+    function itemCheckButtonHandler(event) {
+        const index = event.target.getAttribute("index");
+        const taskToUpdate = todos[index];
+    
+        fetch(
+            `https://fake-todo-list-52f9a4ed80ce.herokuapp.com/Yahaira326/${taskToUpdate.id}`,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ ...taskToUpdate, done: !taskToUpdate.done }),
+            }
+        )
+            .then((response) => response.json())
+            .then((data) => {
+                const updatedTodos = todos.map((task, i) => (i === index ? data : task));
+                setlistItems(updatedTodos);
+            })
+            .catch((error) => console.error("Error updating task:", error));
+    }
     
     function deleteAllItems(event) {
         setlistItems([])
     }
-    
+
+    //Dentro de esta funcion fetch POST
     function onKeyUpHandler(e) {
-        if (e.key == "Enter" && e.target.value != "") {
-            let nextTodos = [...todos, { label: e.target.value, done: false }]
-            setlistItems(nextTodos)
-            setTextValue("")
+        if (e.key === "Enter" && e.target.value !== "") {
+            const newTodo = { label: e.target.value, done: false };
+
+            fetch("https://fake-todo-list-52f9a4ed80ce.herokuapp.com/Yahaira326", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newTodo),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    setlistItems([...todos, data]);
+                    setTextValue("");
+                })
+                .catch((error) => console.error("Error creating task:", error));
         }
     }
 
