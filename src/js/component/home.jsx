@@ -7,7 +7,7 @@ function ListItems(props) {
 
     //fetch GET
     useEffect(() => {
-        fetch("https://fake-todo-list-52f9a4ed80ce.herokuapp.com/Yahaira326")
+        fetch("https://fake-todo-list-52f9a4ed80ce.herokuapp.com/todos/user/Yahaira326")
             .then(response => response.json())
             .then(data => setlistItems(data))
             .catch(error => console.error("Error fetching data:", error));
@@ -18,7 +18,7 @@ function ListItems(props) {
     function itemCloseButtonHandler(index) {
         const taskToDelete = todos[index];
     
-        fetch(`https://fake-todo-list-52f9a4ed80ce.herokuapp.com/Yahaira326/${taskToDelete.id}`, {
+        fetch(`https://fake-todo-list-52f9a4ed80ce.herokuapp.com/todos/user/Yahaira326/${taskToDelete.id}`, {
             method: "DELETE",
         })
             .then(() => {
@@ -35,7 +35,7 @@ function ListItems(props) {
         const taskToUpdate = todos[index];
     
         fetch(
-            `https://fake-todo-list-52f9a4ed80ce.herokuapp.com/Yahaira326/${taskToUpdate.id}`,
+            `https://fake-todo-list-52f9a4ed80ce.herokuapp.com/todos/user/Yahaira326/${taskToUpdate.id}`,
             {
                 method: "PUT",
                 headers: {
@@ -61,7 +61,7 @@ function ListItems(props) {
         if (e.key === "Enter" && e.target.value !== "") {
             const newTodo = { label: e.target.value, done: false };
 
-            fetch("https://fake-todo-list-52f9a4ed80ce.herokuapp.com/Yahaira326", {
+            fetch("https://fake-todo-list-52f9a4ed80ce.herokuapp.com/todos/user/Yahaira326", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
