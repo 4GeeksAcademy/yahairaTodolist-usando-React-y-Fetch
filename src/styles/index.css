@@ -1,111 +1,57 @@
 
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap");
-
-html body{
-  height: 100%;
-}
-
-body{
-  text-align: center;
-  font-family: Montserrat;
+body {
   display: flex;
   justify-content: center;
   align-items: center;
-  
+  margin-top: 10%;
+  background-color: white;
+  background-image: url(https://mlt4nthayffh.i.optimole.com/cb:yymS.46d25/w:auto/h:auto/q:75/f:avif/https://www.nixsensor.com/wp-content/uploads/2022/04/AdobeStock_428593146-scaled.jpeg);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 h1 {
-  font-size: 4em;
-  color: #aaaaaa;
-}
-.todo-list {
-  box-shadow: 0em 0.2em 0.5em #00000030, 0em 0.5em 0em -0.2em #ffffff,
-    0em 0.7em 0.5em -0.2em #00000030, 0em 1em 0em -0.4em #ffffff,
-    0em 1.2em 0.5em -0.4em #00000030, 0em 1.5em 0em -0.6em #ffffff,
-    0em 1.7em 0.5em -0.6em #00000030;
-  min-width: 28em;
-  min-height: 20em;
-  padding: 1em;
-  display: flex;
-  flex-direction: column;
-  text-align: start;
-  transition: min-width 1s ease, min-height 1s ease, box-shadow 1s ease;
-
+  color: rgb(40, 105, 94);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 80px;
+  text-shadow: 2px 4px 4px rgb(0, 0, 0);
 }
 
-.todo-list:hover, .todo-list:focus-within{
-  min-width: 29em;
-  min-height: 21em;
-  box-shadow: 0em 0.2em 0.5em #00000030, 0em 0.5em 0em -1em #ffffff,
-  0em 0.7em 0.5em -1em #00000030, 0em 1em 0em -1.2em #ffffff,
-  0em 1.2em 0.5em -1.2em #00000030, 0em 1.5em 0em -1.4em #ffffff,
-  0em 1.7em 0.5em -1.4em #00000030;
+ul .list-item, .list-title {
+  list-style: none;
+  padding: 10px;
+  border: 1px solid rgba(128, 128, 128, 0.104);
+  background:rgb(40, 105, 94);
 }
 
-.todo-list input {
+p {
+  padding: 10px;
+  background: rgb(40, 105, 94);
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+input {
   border: none;
-  font-size: 2em;
-  transition: box-shadow 1s ease;
-  border-bottom: 0.05em solid #eeeeee;
+  width: 100%;
 }
 
-.todo-list input:focus {
-  outline: none;
-  box-shadow: inset 0em 0em 0.3em -0.1em #00000033;
+.ocultar {
+  visibility: hidden;
+  margin-left: 5%;
+  color: rgb(40, 105, 94);
+  background-color: aliceblue;
 }
 
-.todo-list li {
-  display: flex;
-  flex-direction: row;
-  padding: 0.5em;
+.ocultar:hover {
+  visibility: hidden;
+  margin-left: 5%;
+  color: yellow;
+  background-color: black;
 }
 
-.todo-list li > span {
-  font-size: 1.5em;
+li:hover * {
+  visibility: visible;
 }
-
-.todo-list li > button {
-  text-align: center;
-  width: 1.5em;
-  height: 1.5em;
-  border-radius: 25%;
-  border: none;
-  background-color: #ffffff00;
-}
-
-.todo-list li > button:hover {
-  background-color: #dddddd;
-}
-
-.todo-list li> button:first-of-type{
-  margin-left: auto;
-}
-
-.todo-list>span {
-  margin-top: auto;
-}
-
-.done-items {
-  color: #aaaaaa;
-}
-
-.login {
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0em 0.2em 0.5em #00000030;
-  padding: 1em;
-}
-.login *{
-  margin-bottom: 1em;
-}
-
-.warning {
-  color: red;
-}
-
-button{
-  background-color: #eeeeee;
-  transition: background-color 1s ease;
-}
-
-

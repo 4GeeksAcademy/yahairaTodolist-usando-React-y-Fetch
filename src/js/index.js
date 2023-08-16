@@ -6,14 +6,7 @@ import ReactDOM from "react-dom";
 import "../styles/index.css";
 
 //import your own components
-import ListItems from "./component/home.jsx"
-
-const listItems=[
-    {label: "Por hacer ", done : false},
-    {label: "Por hacer", done : false},
-    {label: "Por hacer", done : false},
-    {label: "Por hacer", done : false},
-    {label: "Esto ya lo hice", done : true}];
+import Home from "./component/home.jsx";
 
 //render your react application
-ReactDOM.render(<ListItems  listItems={listItems} />, document.querySelector("#app"));
+ReactDOM.render(<Home />, document.querySelector("#app"));

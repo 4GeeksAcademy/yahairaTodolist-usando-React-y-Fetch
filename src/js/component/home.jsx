@@ -1,130 +1,98 @@
 import React, { useState, useEffect } from "react";
+import "../../styles/index.css";
 
-function ListItems(props) {
-    
-    const [textValue, setTextValue] = useState("")
-    const [todos, setlistItems] = useState(props.listItems);
-    function getUserToDos (){
-        fetch("https://fake-todo-list-52f9a4ed80ce.herokuapp.com/todos/user/Yahaira326")
-        .then(response => {
-            if(response.status==400){
-                createUser()
-            }else if(response.ok){
-              return  response.json()
-            }
-            
-        })
-        .then(data => setlistItems(data))
-        .catch(error => console.error("Error fetching data:", error));
-    }
-    //fetch GET
-    useEffect(() => {
-        getUserToDos(); 
-    }, []);
-    
-    //fetch delete en esta funcion=
+const Home = () => {
+	const [inputValue, setInputValue] = useState("");
+	const [toDos, settoDos] = useState([]);
 
-    function itemCloseButtonHandler(index) {
-        const updatedTodos = todos.filter((task, i) => i !== index);
-    
-        fetch(`https://fake-todo-list-52f9a4ed80ce.herokuapp.com/todos/user/Yahaira326`, {
-            method: "PUT",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify(updatedTodos)
-        })
-            .then(() => {
-                getUserToDos()
-                
-            })
-            .catch(error => console.error("Error deleting task:", error));
-    }
-    
-    
-	//FETCH PUT en esta funcion
-    function updateUserToDo(event) {
-        if (event.key === "Enter" && event.target.value !== ""){
-            const newTaskList= [...todos,{ label: event.target.value, done: false }]
-            fetch(
-                `https://fake-todo-list-52f9a4ed80ce.herokuapp.com/todos/user/Yahaira326`,
-                {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(newTaskList),
-                }
-            )
-                .then((response) => response.json())
-                .then((data) =>getUserToDos() )
-                .catch((error) => console.error("Error updating task:", error));
-        }
-    
-    }
-    
-    function deleteAllItems(event) {
-        setlistItems([])
-    }
+	const fetchToDoList = async () => {
+		try {
+			const response = await fetch("https://fake-todo-list-52f9a4ed80ce.herokuapp.com/todos/user/Yahaira326");
+			const data = await response.json();
+			settoDos(data);
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
-    //Dentro de esta funcion fetch POST// crea usuario 
-    function createUser() {
+	useEffect(() => {
+		fetchToDoList();
+	}, []);
 
-            fetch("https://fake-todo-list-52f9a4ed80ce.herokuapp.com/todos/user/Yahaira326", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify([]),
-            })
-                .then((response) => {
-                    if(response.status==400){
-                        getUserToDos()
-                    }else if(response.ok){
-                        getUserToDos()
-                    }
-                })
-                .then((data) => {
-                    
-                })
-                .catch((error) => console.error("Error creating task:", error));
-        
-    }
+	const updateToDoList = async (newToDoList) => {
+		try {
+			const response = await fetch("", {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(newToDoList)
+			});
+			const data = await response.json();
+			console.log(data);
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
-    // let listItemsWithIndex = todos.map((e, i) => { e.index = i; return e })
-    // let todoItems = listItemsWithIndex.filter(e => !e.done)
-    
-    let doneItems = listItemsWithIndex.filter(e => e.done)
-    // let itemsLeft = todos.reduce((a, c) => a += c.done ? 0 : 1, 0)
+	const deleteToDoList = async () => {
+		try {
+			const response = await fetch("https://fake-todo-list-52f9a4ed80ce.herokuapp.com/todos/user/Yahaira326", {
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json"
+				},
+			});
+			const data = await response.json();
+			console.log(data);
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
-    return (
-        <>
-            <h1>todos</h1>
-            <div className="todo-list">
-                <input type="text" placeholder="What needs to be done?" onChange={e => setTextValue(e.target.value)} onKeyUp={updateUserToDo} value={textValue}></input>
-                <ul className="todo-items">
-                    {todoItems.map((listItem) => (
-                        <li key={listItem.index}>
-                            <span>{listItem.label}</span>
-                            <button onClick={updateUserToDo} index={listItem.index} className="bi bi-square"></button>
-                            <button index={listItem.index} onClick={()=>itemCloseButtonHandler(listItem.index)} className="bi bi-trash"></button>
-                        </li>
-                    ))}
-                </ul>
-                <ul className="done-items">
-                    {doneItems.map((listItem) => (
-                        <li key={listItem.index}>
-                            <span>{listItem.label}</span>
-                            <button onClick={updateUserToDo} index={listItem.index} className="bi bi-check2-square"></button>
-                            <button index={listItem.index} onClick={()=>itemCloseButtonHandler(listItem.index)} className="bi bi-trash"></button>
-                        </li>
-                    ))}
-                </ul>
-                <span>{itemsLeft} items left.</span>
-                <button onClick={deleteAllItems}>Delete all items</button>
-            </div>
-        </>
-    )
-}
+	const handleAddToDo = (newToDo) => {
+		const newToDoList = toDos.concat({ label: newToDo, done: false });
+		settoDos(newToDoList);
+		updateToDoList(newToDoList);
+	};
 
+	const handleDeleteToDo = (index) => {
+		const newToDoList = toDos.filter((_, currentIndex) => index !== currentIndex);
+		settoDos(newToDoList);
+		updateToDoList(newToDoList);
+	};
 
-export default ListItems
-//
+	return (
+		<>
+			<div className="container-fluid row d-flex justify-content-center align-items-center p-2">
+				<h1 className="row justify-content-center">To-Do List</h1>
+				<ul className="list-container col-12">
+					<li className="list-title">
+						<input
+							className="text"
+							onChange={(e) => setInputValue(e.target.value)}
+							value={inputValue}
+							onKeyPress={(e) => {
+								if (e.key === "Enter" && !/^\s*$/.test(inputValue)) {
+									handleAddToDo(inputValue);
+									setInputValue("");
+								}
+							}}
+							placeholder="What do you need to do today?"
+						/>
+
+					</li>
+					{toDos && toDos.length > 0 && toDos.map((item, index) => (
+
+						<li key={index} className="list-item">{item.label}
+							<button className="ocultar btn btn-sm" type="button" onClick={() => handleDeleteToDo(index)}><i className="fas fa-trash-alt"></i></button>
+						</li>
+					))}
+					<li className="list-item text-end"><em>{toDos.length} item(s) left.-</em></li>
+				</ul>
+			</div>
+		</>
+	);
+};
+
+export default Home;
