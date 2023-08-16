@@ -5,28 +5,28 @@ body {
   align-items: center;
   margin-top: 10%;
   background-color: white;
-  background-image: url(https://i.pinimg.com/236x/64/5f/47/645f47baf858409fcc546969c6323703.jpg);
+  background-image: url(https://fondosmil.com/fondo/31876.png);
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 h1 {
-  color: rgb(40, 105, 94);
+  color: rgb(69, 184, 164);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 80px;
-  text-shadow: 2px 4px 4px rgb(0, 0, 0);
+  text-shadow: 2px 4px 4px rgb(47, 89, 105);
 }
 
 ul .list-item, .list-title {
   list-style: none;
   padding: 10px;
   border: 1px solid rgba(128, 128, 128, 0.104);
-  background:rgb(40, 105, 94);
+  background:rgb(69, 184, 164);
 }
 
 p {
   padding: 10px;
-  background: rgb(40, 105, 94);
+  background: rgb(69, 184, 164);
 }
 
 body {
@@ -41,14 +41,14 @@ input {
 .ocultar {
   visibility: hidden;
   margin-left: 5%;
-  color: rgb(40, 105, 94);
+  color: rgb(69, 184, 164);
   background-color: aliceblue;
 }
 
 .ocultar:hover {
   visibility: hidden;
   margin-left: 5%;
-  color: yellow;
+  color: rgb(0, 255, 255);
   background-color: black;
 }
 
